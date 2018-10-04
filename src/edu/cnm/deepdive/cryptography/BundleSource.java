@@ -13,6 +13,8 @@ public class BundleSource implements WordSource {
     words = new ArrayList<>(
         bundle.keySet().stream() //keyset method returns set, then returns stream of strings
             .map((k) -> bundle.getString(k)) //map returns a stream transformed to another string value
+            .filter((s) -> !s.matches("^.*\\W|\\d.*$"))// filters out words with punctuation or digit
+            .filter ((s) -> s.length() > 3) //filters out words of length <3
             .collect(Collectors.toList())
         //stream has method collect, returns a list of strings then use
         //that as an argument for the Array List
